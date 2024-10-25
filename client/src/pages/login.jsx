@@ -5,10 +5,10 @@ import banner  from '../assets/banner/f1_car.jpg'
 import axios from 'axios'; // Import axios for making API calls
 
 const Login = () => {
-  const navigate = useNavigate(); // Initialize the useNavigate hook
-  const [email, setEmail] = useState(''); // State for email
-  const [password, setPassword] = useState(''); // State for password
-  const [error, setError] = useState(''); // State for error message
+  const navigate = useNavigate(); 
+  const [email, setEmail] = useState(''); 
+  const [password, setPassword] = useState(''); 
+  const [error, setError] = useState(''); 
 
   // Function to handle navigation to the registration page
   const handleRegisterClick = () => {
@@ -27,12 +27,8 @@ const Login = () => {
   
       // Check if login is successful
       if (response.data && response.data.message === "Login successful") {
-
-        console.log(response,"++++++++++++++++++++++++")
         
         const userData = response.data.data.user;
-
-        console.log(userData,"++++++++++++++++++++++++")
 
         localStorage.setItem('user_name', userData.user_name);
         localStorage.setItem('first_name', userData.first_name);

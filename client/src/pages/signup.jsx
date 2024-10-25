@@ -1,10 +1,11 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS for Toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { END_POINT } from '../api/endPoint';
-import banner  from '../assets/banner/f1_car.jpg'
+import banner from '../assets/banner/f1_car.jpg';
+
 const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -25,24 +26,18 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
- 
     try {
       const response = await axios.post(END_POINT.REGISTRATION_API_URL, formData);
 
       if (response.status === 201) {
         const token = response.data.data.access_token; 
-
         localStorage.setItem('token', token);
-        
-      
         navigate('/login'); 
-        console.log('Signup successful:', response.data);
         toast.success('Signup successful!');
       }
     } catch (error) {
-     
-      const errorMessage = error.response.data.data.message || 'Signup failed. Please try again.';
-      toast.error(errorMessage); 
+      const errorMessage = error.response?.data?.data?.message || 'Signup failed. Please try again.';
+      toast.error(errorMessage);
       console.error('Signup failed:', errorMessage);
     }
   };
@@ -53,7 +48,6 @@ const Signup = () => {
 
   return (
     <div className="flex h-screen flex-col md:flex-row">
-      
       <div
         className="hidden md:block w-full md:w-1/2 bg-cover"
         style={{
@@ -67,15 +61,22 @@ const Signup = () => {
         <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
 
         <form className="space-y-4 w-full max-w-sm" onSubmit={handleSubmit}>
-          {['Username', 'First name', 'Last name', 'Email', 'Phone number', 'Password', 'Repeat password'].map((field, index) => (
+          {[
+            { name: 'user_name', placeholder: 'Username' },
+            { name: 'first_name', placeholder: 'First name' },
+            { name: 'last_name', placeholder: 'Last name' },
+            { name: 'email', placeholder: 'Email', type: 'email' },
+            { name: 'phone_number', placeholder: 'Phone number' },
+            { name: 'password', placeholder: 'Password', type: 'password' },
+            { name: 'repeat_password', placeholder: 'Repeat password', type: 'password' },
+          ].map((field, index) => (
             <div key={index}>
-             
               <input
-                type={field.includes('password') ? 'password' : field === 'email' ? 'email' : 'text'}
-                name={field}
-                className="mt-1 block w-full p-4 border border-gray-800  rounded-md"
-                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                value={formData[field]}
+                type={field.type || 'text'}
+                name={field.name}
+                className="mt-1 block w-full p-4 border border-gray-800 rounded-md"
+                placeholder={field.placeholder}
+                value={formData[field.name]}
                 onChange={handleChange}
                 required
               />
@@ -100,7 +101,6 @@ const Signup = () => {
         </div>
       </div>
 
-      {/* Toast Container */}
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick pauseOnHover draggable />
     </div>
   );

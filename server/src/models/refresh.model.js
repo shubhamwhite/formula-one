@@ -6,7 +6,7 @@ const refreshSchema = new mongoose.Schema({
     unique: true
   }
 }, {
-  timestamps: false
+  timestamps: true
 })
 
 const Refresh = mongoose.model('Refresh', refreshSchema)

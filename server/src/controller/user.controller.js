@@ -116,3 +116,19 @@ exports.loginUser = async (req, res, next) => {
     return next(err)
   }
 }
+
+// ** get Personal information
+
+exports.getUserInformation = async (req, res, next) => {
+ 
+  try {
+    const getProfile = await _User.findOne({ _id: req.user._id }).select('-password -updatedAt -__v')
+    if (!getProfile) {
+      return next(CustomErrorHandler.notFound('User is not found'))
+    }
+    res.status(200).jsonp({ message: 'User profile get successfully', userProfile: getProfile })
+  } catch (err) {
+    return next(err)
+  }
+    
+}
