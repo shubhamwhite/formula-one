@@ -12,7 +12,7 @@ exports.auth = async (req, res, next) => {
 
     const { _id, role } = await JwtUtils.verify(token)
 
-    req.user = {}
+    req.user = {} 
     req.user._id = _id
     req.user.role = role
 

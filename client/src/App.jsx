@@ -1,9 +1,10 @@
-
+// App.js
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';  // Import your Home component
 import Login from './pages/login'; // Import your Login component
-import Signup from './pages/signup';
-import Profile from './pages/profile';
+import Signup from './pages/signup'; // Import your Signup component
+import Profile from './pages/profile'; // Import your Profile component
+import AuthGuard from './components/AuthGuard'; // Adjust the import path as needed
 
 function App() {
   return (
@@ -12,7 +13,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route 
+          path="/profile" 
+          element={
+            <AuthGuard>
+              <Profile />
+            </AuthGuard>
+          } 
+        /> 
       </Routes>
     </Router>
   );

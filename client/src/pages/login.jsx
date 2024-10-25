@@ -34,6 +34,7 @@ const Login = () => {
         localStorage.setItem('first_name', userData.first_name);
         localStorage.setItem('last_name', userData.last_name);
         localStorage.setItem('phone_number', userData.phone_number);
+        localStorage.setItem('email', userData.email);
         localStorage.setItem('avatar', userData.avatar);
         localStorage.setItem('_id', userData._id);
         localStorage.setItem('access_token', response.data.data.access_token);
