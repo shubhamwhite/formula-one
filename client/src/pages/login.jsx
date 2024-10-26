@@ -1,35 +1,36 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import { END_POINT } from '../api/endPoint';
-import banner  from '../assets/banner/f1_car.jpg'
-import axios from 'axios'; // Import axios for making API calls
+import banner from '../assets/banner/f1_car.jpg';
+import axios from 'axios'; 
+import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 
 const Login = () => {
   const navigate = useNavigate(); 
   const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState(''); 
-  const [error, setError] = useState(''); 
 
   // Function to handle navigation to the registration page
   const handleRegisterClick = () => {
-    navigate('/register'); // Navigate to the register page
+    navigate('/register'); 
   };
 
   // Function to handle form submission
   const handleLoginSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
-  
+
     try {
       const response = await axios.post(END_POINT.LOGIN_API_URL, {
         email,
         password,
       });
-  
+
       // Check if login is successful
       if (response.data && response.data.message === "Login successful") {
-        
         const userData = response.data.data.user;
 
+        // Store user information in local storage
         localStorage.setItem('user_name', userData.user_name);
         localStorage.setItem('first_name', userData.first_name);
         localStorage.setItem('last_name', userData.last_name);
@@ -44,14 +45,15 @@ const Login = () => {
         navigate('/');
       } else {
         // Handle unexpected response structure
-        setError('Unexpected response. Please try again.');
+        toast.error('Unexpected response. Please try again.'); // Use toast for error message
       }
     } catch (error) {
       // Handle errors (e.g., invalid login)
       if (error.response && error.response.data) {
-        setError(error.response.data.message || 'Login failed. Please try again.'); // Show error message
+        const errorMessage = error.response.data.data?.message || 'Login failed. Please try again.'; // Show error message
+        toast.error(errorMessage); // Use toast for error message
       } else {
-        setError('An error occurred. Please try again.'); // Generic error message
+        toast.error('An error occurred. Please try again.'); // Generic error message
       }
     }
   };
@@ -62,35 +64,32 @@ const Login = () => {
         className="hidden md:block w-full md:w-1/2 bg-cover bg-center"
         style={{
           backgroundImage: `url(${banner})`,
-          backgroundSize: 'cover', // Ensures the image covers the div
-          backgroundPosition: 'center', // Centers the image
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
-      >
-    
-      </div>
+      ></div>
 
       {/* Right Side Login Form */}
-      <div className="w-full h-full md:w-1/2 flex flex-col justify-center items-center p-10 ">
+      <div className="w-full h-full md:w-1/2 flex flex-col justify-center items-center p-10">
         <h2 className="text-2xl font-bold mb-6">Login</h2>
-        {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
         <form className="space-y-4 w-full max-w-sm" onSubmit={handleLoginSubmit}>
           <div>
             <input
               type="email"
-              className="mt-1 block w-full p-4 border border-gray-800  rounded-md"
+              className="mt-1 block w-full p-4 border border-gray-800 rounded-md"
               placeholder="Email"
-              value={email} // Bind email state
-              onChange={(e) => setEmail(e.target.value)} // Update email state on input change
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div>
             <input
               type="password"
-              className="mt-1 block w-full p-4 border border-gray-800  rounded-md"
+              className="mt-1 block w-full p-4 border border-gray-800 rounded-md"
               placeholder="Password"
-              value={password} // Bind password state
-              onChange={(e) => setPassword(e.target.value)} // Update password state on input change
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
@@ -114,6 +113,7 @@ const Login = () => {
           </p>
         </div>
       </div>
+      <ToastContainer /> {/* Add ToastContainer to render toasts */}
     </div>
   );
 };

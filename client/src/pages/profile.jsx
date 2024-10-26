@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { END_POINT } from "../api/endPoint";
-import openMenu from '../assets/icon/hamburger_15627588.png';
-import closeMenu from '../assets/icon/category_9532068.png';
+import dots from '../assets/icon/dots.png';
 import BreadCrumb from "../components/BreadCrumb";
+import profile from '../assets/menu/account.png'
+import wallet from '../assets/menu/wallet.png'
+import termcondition from '../assets/menu/info.png'
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("personalInfo");
+  const [isMenuOpen, setIsMenuOpen] = useState(true); // New state for menu open/close
   const [isAgreed, setIsAgreed] = useState(false);
   const [avatar, setAvatar] = useState(
     "https://cdn-icons-png.freepik.com/256/13450/13450044.png?uid=R168510653&ga=GA1.1.487493721.1726747734&semt=ais_hybrid"
@@ -29,6 +32,7 @@ const Profile = () => {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
           },
+          
         });
 
         if (!response.ok) {
@@ -77,7 +81,7 @@ const Profile = () => {
       case "personalInfo":
         return (
           <div>
-            <h3 className="text-2xl font-semibold mb-4">Avatar Upload</h3>
+            <h3 className="text-2xl font-semibold mb-4 ">Avatar Upload</h3>
             <div className="flex flex-col mb-6">
               <div className="w-24 h-24 rounded-full border-2 border-pri flex items-center justify-center mb-4 overflow-hidden relative p-2">
                 <input
@@ -174,7 +178,7 @@ const Profile = () => {
 
         case "wallet":
                 return (
-                  <div>
+                  <div className="bg-gray-50 rounded-lg shadow-lg w-1/3 p-6">
                     <h3 className="text-2xl font-semibold mb-4">Wallet</h3>
                     <p className="text-lg">
                       Balance: <span className="font-bold">$100</span>
@@ -186,7 +190,7 @@ const Profile = () => {
                 return (
                   <div className="flex flex-col items-start space-y-4">
                     <h3 className="text-2xl font-semibold mb-4">Terms and Conditions</h3>
-                    <div className="overflow-y-auto max-h-60 p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <div className="overflow-y-auto max-h-60 p-2">
                       <p className="text-sm leading-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
                       <p className="text-sm leading-6 mt-2">Mauris sit amet odio in lacus tempor laoreet...</p>
                     </div>
@@ -218,41 +222,62 @@ const Profile = () => {
         return null;
     }
   };
-return (
-  <>
-    <div className="flex h-screen">
-      <div className="w-1/4 bg-gray p-6 flex flex-col space-y-4 shadow-md">
-        <button
-          onClick={() => setActiveSection("personalInfo")}
-          className={`p-3 rounded-md text-left transition ${activeSection === "personalInfo" ? "bg-primary text-white" : "bg-white text-gray-700 hover:bg-gray-200"}`}
-        >
-          Personal Information
-        </button>
-        <button
-          onClick={() => setActiveSection("wallet")}
-          className={`p-3 rounded-md text-left transition ${activeSection === "wallet" ? "bg-primary text-white" : "bg-white text-gray-700 hover:bg-gray-200"}`}
-        >
-          Wallet
-        </button>
-        <button
-          onClick={() => setActiveSection("termAndCondition")}
-          className={`p-3 rounded-md text-left transition ${activeSection === "termAndCondition" ? "bg-primary text-white" : "bg-white text-gray-700 hover:bg-gray-200"}`}
-        >
-          Terms and Conditions
-        </button>
-      </div>
-      <div className="w-3/4 flex flex-col justify-start items-center p-6 pt-20"> {/* Add padding-top to avoid overlap with breadcrumb */}
-        <div className="w-full max-w-5xl">
-          <div className="w-full mb-4">
-            <BreadCrumb currentPath="Profile" />
+
+  return (
+    <>
+      <div className="flex h-screen">
+        {/* Left-side menu */}
+        <div className={`bg-primary h-full p-6 flex flex-col space-y-4 transition-all duration-300 ${isMenuOpen ? "w-1/4" : "w-26"}`}>
+          {/* Toggle Menu Button */}
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="flex items-center mb-4">
+            <img src={isMenuOpen ? dots : dots} alt="Menu Toggle" className="w-10 h-10 ml-2" />
+          </button>
+  
+          {/* Menu Items */}
+          <div className="flex flex-col">
+            <button
+              onClick={() => setActiveSection("personalInfo")}
+              className={`flex items-center mb-3 p-4 rounded-full text-left transition ${activeSection === "personalInfo" ? "bg-blue-500 text-white " : "bg-gray text-gray-700 hover:bg-gray-200"}`}
+            >
+              <img src={profile} alt="Profile Icon" className={`w-6 h-6 mr-2 ${isMenuOpen ? '' : 'text-blue-500'}`} />
+              {isMenuOpen && <span>Personal Information</span>}
+            </button>
+  
+            <button
+              onClick={() => setActiveSection("wallet")}
+              className={`flex items-center p-4 mb-3 rounded-full text-left transition  ${activeSection === "wallet" ? "bg-blue-500 text-white" : "bg-gray text-gray-700 hover:bg-gray-200"}`}
+            >
+              <img src={wallet} alt="Wallet Icon" className={`w-6 h-6 mr-2 ${isMenuOpen ? '' : 'text-blue-500'}`} />
+              {isMenuOpen && <span>Wallet</span>}
+            </button>
+  
+            <button
+              onClick={() => setActiveSection("termAndCondition")}
+              className={`flex items-center p-4 rounded-full text-left transition ${activeSection === "termAndCondition" ? "bg-blue-500 text-white" : "bg-gray text-gray-700 hover:bg-gray-200"}`}
+            >
+              <img src={termcondition} alt="Terms Icon" className={`w-6 h-6 mr-2 ${isMenuOpen ? '' : 'text-blue-500'}`} />
+              {isMenuOpen && <span>Terms and Conditions</span>}
+            </button>
+
           </div>
-          {renderSectionContent()}
+        </div>
+  
+        {/* Right-side content */}
+        <div className="w-3/4 flex flex-col h-full w-full">
+          <div className="flex-grow flex flex-col justify-start items-center p-6 pt-20 overflow-auto">
+            <div className="w-full max-w-5xl">
+              <div className="w-full mb-4">
+                <BreadCrumb currentPath="Profile" />
+              </div>
+              {renderSectionContent()}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </>
-);
-
+    </>
+  );
+  
+  
   
 };
 
