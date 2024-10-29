@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { END_POINT } from '../api/endPoint';
-import banner from '../assets/banner/f1_car.jpg';
+import banner from '../assets/banner/wp10415959-f1-driver-wallpapers.jpg';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -48,8 +48,9 @@ const Signup = () => {
 
   return (
     <div className="flex h-screen flex-col md:flex-row">
+      {/* Left Section with Background Image */}
       <div
-        className="hidden md:block w-full md:w-1/2 bg-cover"
+        className="w-full md:w-1/2 h-[50vh] md:h-screen bg-cover"
         style={{
           backgroundImage: `url(${banner})`,
           backgroundSize: 'cover',
@@ -57,24 +58,26 @@ const Signup = () => {
         }}
       />
       
-      <div className="w-full h-full md:w-1/2 flex flex-col justify-center items-center p-10 ">
-        <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
+      {/* Right Section with Sign Up Form */}
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-10 bg-white min-h-screen">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-gray-800">Sign Up</h2>
 
-        <form className="space-y-4 w-full max-w-sm" onSubmit={handleSubmit}>
+        {/* Form */}
+        <form className="space-y-3 md:space-y-4 w-full max-w-sm " onSubmit={handleSubmit}>
           {[
             { name: 'user_name', placeholder: 'Username' },
-            { name: 'first_name', placeholder: 'First name' },
-            { name: 'last_name', placeholder: 'Last name' },
+            { name: 'first_name', placeholder: 'First Name' },
+            { name: 'last_name', placeholder: 'Last Name' },
             { name: 'email', placeholder: 'Email', type: 'email' },
-            { name: 'phone_number', placeholder: 'Phone number' },
+            { name: 'phone_number', placeholder: 'Phone Number' },
             { name: 'password', placeholder: 'Password', type: 'password' },
-            { name: 'repeat_password', placeholder: 'Repeat password', type: 'password' },
+            { name: 'repeat_password', placeholder: 'Repeat Password', type: 'password' },
           ].map((field, index) => (
             <div key={index}>
               <input
                 type={field.type || 'text'}
                 name={field.name}
-                className="mt-1 block w-full p-4 border border-gray-800 rounded-md"
+                className="mt-1 block w-full p-2 md:p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder={field.placeholder}
                 value={formData[field.name]}
                 onChange={handleChange}
@@ -83,12 +86,17 @@ const Signup = () => {
             </div>
           ))}
           <div className="flex justify-center">
-            <button type="submit" className="px-4 py-3 bg-primary text-white rounded-md">
+            <button 
+              type="submit" 
+              className="px-4 py-3 w-full bg-blue-600 text-white rounded-md md:w-auto md:px-6 hover:bg-blue-700 focus:bg-blue-700 transition-colors"
+            >
               Sign Up
             </button>
           </div>
         </form>
-        <div className="mt-4">
+
+        {/* Login Redirect */}
+        <div className="mt-3 md:mt-4 text-center">
           <p className="text-sm text-gray-600">
             Already have an account?{' '}
             <button 
@@ -101,6 +109,7 @@ const Signup = () => {
         </div>
       </div>
 
+      {/* Toast Notifications */}
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick pauseOnHover draggable />
     </div>
   );

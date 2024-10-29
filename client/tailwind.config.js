@@ -10,11 +10,11 @@ export default {
         "mobile": '480px', 
       },
       colors: {
-        "primary": '#00224D',    // Replace with your primary color
-        "secondary": '#5D0E41',  // Replace with your secondary color
-        "accent": '#A0153E',     // Replace with your accent color
-        "gray": "#F0F0F0",
-        "neutral": '#FF204E',    // Replace with your neutral color
+        "primary": '#1B262C',    // Replace with your primary color
+        "secondary": '#0F4C81',  // Replace with your secondary color
+        "accent": '#ED6663',     // Replace with your accent color
+        "neutral": '#FFA372',    // Replace with your neutral color
+        "light": "#F4F6FF"
       },
     },
   },

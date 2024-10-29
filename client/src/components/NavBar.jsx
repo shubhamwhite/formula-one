@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { END_POINT } from "../api/endPoint";
+import axios from "axios"; // Import axios
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,14 +36,35 @@ const NavBar = () => {
       if (userName) {
         setUserName(userName);
       }
+
+      // Fetch avatar from API
+      fetchAvatar(token);
     }
   }, []);
 
+  const fetchAvatar = async (token) => {
+    try {
+      const response = await axios.get(END_POINT.GET_AVATAR, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Pass the access token in the headers
+        },
+      });
+
+      // Assuming the response data contains the avatar URL
+      if (response.data && response.data.avatar) {
+        setAvatar(response.data.avatar);
+        localStorage.setItem("avatar", response.data.avatar); // Optionally store it in localStorage
+      }
+    } catch (error) {
+      console.error("Error fetching avatar:", error);
+      if (error.response.status === 401) {
+        navigate("/login");
+        localStorage.clear();
+      }
+    }
+  };
+
   const handleLogin = () => {
-    // Logic to perform login and set the token
-    // For example:
-    // localStorage.setItem("access_token", newToken);
-    // localStorage.setItem("token_expiry", Date.now() + (60 * 60 * 1000)); // 1 hour expiry
     setIsLoggedIn(true);
     navigate("/login");
   };
@@ -53,6 +76,7 @@ const NavBar = () => {
     localStorage.removeItem("last_name");
     localStorage.removeItem("phone_number");
     localStorage.removeItem("avatar");
+    localStorage.removeItem("email");
     localStorage.removeItem("_id");
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
@@ -63,10 +87,13 @@ const NavBar = () => {
 
   const handleHome = () => {
     navigate("/");
-  }
+  };
 
   const profileVisit = () => {
-    navigate("/profile");
+      if(localStorage.access_token === undefined){
+        navigate("/login");
+      }
+      navigate("/profile");
   };
 
   const toggleDropdown = () => {
@@ -92,63 +119,101 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className="bg-primary p-4">
+    <nav className="bg-primary p-4 sticky top-0 z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-2 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Left: Logo */}
           <div className="flex-shrink-0 font-bold text-2xl lg:text-4xl bg-gradient-to-r from-sky-500 via-purple-600 to-red-500 bg-clip-text text-transparent">
             TurboBets
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden mobile:flex mobile:items-center mobile:ml-6">
-            <div className="flex justify-around space-x-10 w-full">
-              <a href="#" className="text-white hover:text-neutral px-3 py-2 rounded-md text-xl font-light" onClick={handleHome}>Home</a>
-              <a href="#" className="text-white hover:text-neutral px-3 py-2 rounded-md text-xl font-light">About</a>
-              <a href="#" className="text-white hover:text-neutral px-3 py-2 rounded-md text-xl font-light">Services</a>
-              <a href="#" className="text-white hover:text-neutral px-3 py-2 rounded-md text-xl font-light">Contact</a>
+          {/* Center: Desktop Navigation */}
+          <div className="hidden mobile:flex mobile:items-center mobile:ml-6 absolute inset-x-0 justify-center">
+            <div className="flex justify-around space-x-10">
+              <a
+                href="#"
+                className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light"
+                onClick={handleHome}
+              >
+                Home
+              </a>
+              <a
+                href="#"
+                className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light"
+              >
+                About
+              </a>
+              <a
+                href="#"
+                className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light"
+              >
+                Services
+              </a>
+              <a
+                href="#"
+                className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light"
+              >
+                Contact
+              </a>
             </div>
+          </div>
 
-            {/* User Avatar and Dropdown */}
-            <div className="relative ml-8 flex items-center">
-              {isLoggedIn ? (
-                <>
+          {/* Right: User Avatar and Dropdown */}
+          <div className="flex items-center">
+            {isLoggedIn ? (
+              <div className="relative flex items-center space-x-2">
+                <div className="relative items-center space-x-2 hidden md:flex">
+                  {/* Profile Image */}
                   <img
-                    className="h-12 w-14 rounded-full object-cover border-2 border-white hover:cursor-pointer p-1"
-                    src={avatar || 'https://via.placeholder.com/150'}
+                    className="h-12 w-12 rounded-full object-cover border border-white hover:cursor-pointer p-1"
+                    src={avatar || "https://via.placeholder.com/150"}
                     alt="Profile of logged-in user"
                     onClick={toggleDropdown}
                   />
 
-                  {/* Dropdown Menu */}
-                  {isOpen && (
-                    <div
-                      ref={dropdownRef}
-                      className="absolute z-10 top-20 right-0 w-40 bg-white rounded-md shadow-lg"
+                  {/* Username */}
+                  <span
+                    className="text-white font-small hover:cursor-pointer font-light"
+                    onClick={toggleDropdown}
+                  >
+                    {userName}
+                  </span>
+                </div>
+
+                {/* Username */}
+
+                {/* Dropdown Menu */}
+                {isOpen && (
+                  <div
+                    ref={dropdownRef}
+                    className="absolute z-10 top-16 right-0 w-40 bg-white rounded-md shadow-lg border"
+                  >
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-gray-700 hover:text-neutral hover:bg-primary hover:rounded-t-md"
+                      onClick={profileVisit}
                     >
-                      <a href="#" className="block px-4 py-2 text-gray-700 hover:text-neutral hover:rounded-t-md" onClick={profileVisit}>
-                        Profile
-                      </a>
-                      <a
-                        href="#"
-                        onClick={handleLogout}
-                        className="block px-4 py-2 text-gray-700 hover:text-neutral hover:rounded-b-md"
-                      >
-                        Logout
-                      </a>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <a
-                  href="#"
-                  onClick={handleLogin}
-                  className="text-white hover:text-neutral px-3 py-2 rounded-md text-xl font-light"
-                >
-                  Login
-                </a>
-              )}
-            </div>
+                      Profile
+                    </a>
+                    <a
+                      href="#"
+                      onClick={handleLogout}
+                      className="block px-4 py-2 text-gray-700 hover:text-neutral hover:bg-primary hover:rounded-b-md"
+                    >
+                      Logout
+                    </a>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <a
+                href="#"
+                onClick={handleLogin}
+                className="text-white hover:text-neutral px-3 py-2 rounded-md text-xl font-light"
+              >
+                Login
+              </a>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -224,13 +289,16 @@ const NavBar = () => {
                 >
                   Logout
                 </a>
-                <div className="px-3 py-3 flex items-center space-x-2 hover:cursor-pointer" onClick={profileVisit}>
+                <div
+                  className="px-3 py-3 flex items-center space-x-2 hover:cursor-pointer"
+                  onClick={profileVisit}
+                >
                   <img
-                    className="h-10 w-10 rounded-full object-cover border-2 border-white p-1"
+                    className="h-8 w-8 rounded-full object-cover"
                     src={avatar || "https://via.placeholder.com/150"}
-                    alt="Profile of logged-in user"
+                    alt="Profile"
                   />
-                  <p className="text-white">{userName}</p>
+                  <span className="text-white font-medium">{userName}</span>
                 </div>
               </>
             ) : (

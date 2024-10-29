@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { END_POINT } from '../api/endPoint';
-import banner from '../assets/banner/f1_car.jpg';
+import banner from '../assets/banner/wp10415952-f1-driver-wallpapers.jpg';
 import axios from 'axios'; 
 import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
@@ -60,6 +60,7 @@ const Login = () => {
 
   return (
     <div className="flex h-screen flex-col md:flex-row">
+      {/* Left Side Image */}
       <div
         className="hidden md:block w-full md:w-1/2 bg-cover bg-center"
         style={{
@@ -70,7 +71,7 @@ const Login = () => {
       ></div>
 
       {/* Right Side Login Form */}
-      <div className="w-full h-full md:w-1/2 flex flex-col justify-center items-center p-10">
+      <div className="w-full h-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-10">
         <h2 className="text-2xl font-bold mb-6">Login</h2>
         <form className="space-y-4 w-full max-w-sm" onSubmit={handleLoginSubmit}>
           <div>
