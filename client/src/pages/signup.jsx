@@ -4,16 +4,13 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { END_POINT } from '../api/endPoint';
-import banner from '../assets/banner/wp10415959-f1-driver-wallpapers.jpg';
+import banner from '../assets/banner/f1_car.jpg';
 
 const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     user_name: '',
-    first_name: '',
-    last_name: '',
     email: '',
-    phone_number: '',
     password: '',
     repeat_password: ''
   });
@@ -32,7 +29,7 @@ const Signup = () => {
       if (response.status === 201) {
         const token = response.data.data.access_token; 
         localStorage.setItem('token', token);
-        navigate('/login'); 
+        navigate('/login');
         toast.success('Signup successful!');
       }
     } catch (error) {
@@ -43,73 +40,88 @@ const Signup = () => {
   };
 
   const handleLoginRedirect = () => {
-    navigate('/login'); 
+    navigate('/login');
   };
 
   return (
     <div className="flex h-screen flex-col md:flex-row">
-      {/* Left Section with Background Image */}
+      {/* Left Side Image */}
       <div
-        className="w-full md:w-1/2 h-[50vh] md:h-screen bg-cover"
+        className="hidden md:block w-full md:w-1/2 bg-cover bg-center"
         style={{
           backgroundImage: `url(${banner})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
-      />
-      
-      {/* Right Section with Sign Up Form */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-10 bg-white min-h-screen">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-gray-800">Sign Up</h2>
+      ></div>
 
-        {/* Form */}
-        <form className="space-y-3 md:space-y-4 w-full max-w-sm " onSubmit={handleSubmit}>
-          {[
-            { name: 'user_name', placeholder: 'Username' },
-            { name: 'first_name', placeholder: 'First Name' },
-            { name: 'last_name', placeholder: 'Last Name' },
-            { name: 'email', placeholder: 'Email', type: 'email' },
-            { name: 'phone_number', placeholder: 'Phone Number' },
-            { name: 'password', placeholder: 'Password', type: 'password' },
-            { name: 'repeat_password', placeholder: 'Repeat Password', type: 'password' },
-          ].map((field, index) => (
-            <div key={index}>
-              <input
-                type={field.type || 'text'}
-                name={field.name}
-                className="mt-1 block w-full p-2 md:p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder={field.placeholder}
-                value={formData[field.name]}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          ))}
-          <div className="flex justify-center">
-            <button 
-              type="submit" 
-              className="px-4 py-3 w-full bg-blue-600 text-white rounded-md md:w-auto md:px-6 hover:bg-blue-700 focus:bg-blue-700 transition-colors"
-            >
+      {/* Right Side Sign Up Form */}
+      <div className="w-full h-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-10">
+        <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
+
+        <form className="space-y-4 w-full max-w-sm" onSubmit={handleSubmit}>
+          <div>
+            <input
+              type="text"
+              name="user_name"
+              className="mt-1 block w-full p-4 border border-gray-800 rounded-md"
+              placeholder="Username"
+              value={formData.user_name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="email"
+              name="email"
+              className="mt-1 block w-full p-4 border border-gray-800 rounded-md"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              className="mt-1 block w-full p-4 border border-gray-800 rounded-md"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="repeat_password"
+              className="mt-1 block w-full p-4 border border-gray-800 rounded-md"
+              placeholder="Repeat Password"
+              value={formData.repeat_password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <button type="submit" className="px-4 py-3 bg-primary text-white rounded-md">
               Sign Up
             </button>
           </div>
         </form>
 
         {/* Login Redirect */}
-        <div className="mt-3 md:mt-4 text-center">
+        <div className="mt-4">
           <p className="text-sm text-gray-600">
             Already have an account?{' '}
-            <button 
-              onClick={handleLoginRedirect} 
-              className="text-blue-600 hover:underline focus:outline-none"
-            >
+            <button onClick={handleLoginRedirect} className="text-blue-600 hover:underline">
               Login here
             </button>
           </p>
         </div>
       </div>
 
-      {/* Toast Notifications */}
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick pauseOnHover draggable />
     </div>
   );

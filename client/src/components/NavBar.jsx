@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { END_POINT } from "../api/endPoint";
-import axios from "axios"; // Import axios
+import axios from "axios";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,115 +9,102 @@ const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [avatar, setAvatar] = useState("");
   const [userName, setUserName] = useState("");
+  const [loading, setLoading] = useState(true);
   const dropdownRef = useRef(null);
-
+  
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    const storedAvatar = localStorage.getItem("avatar");
-    const userName = localStorage.getItem("user_name");
     const tokenExpiry = localStorage.getItem("token_expiry");
-
-    // Check if the token has expired
+  
     if (token && tokenExpiry) {
-      const isExpired = Date.now() > Number(tokenExpiry); // Compare current time with expiry time
+      const isExpired = Date.now() > Number(tokenExpiry);
       if (isExpired) {
-        handleLogout(); // Token expired, log out the user
+        handleLogout();
         return;
       }
     }
-
+  
     if (token) {
       setIsLoggedIn(true);
-      if (storedAvatar) {
-        setAvatar(storedAvatar);
-      }
-      if (userName) {
-        setUserName(userName);
-      }
-
-      // Fetch avatar from API
-      fetchAvatar(token);
+      fetchUserInfo(token);
+    } else {
+      setLoading(false); // No token means not loading
     }
   }, []);
-
-  const fetchAvatar = async (token) => {
+  
+  const fetchUserInfo = async (token) => {
+    setLoading(true);
     try {
-      const response = await axios.get(END_POINT.GET_AVATAR, {
+      const response = await axios.get(END_POINT.GET_USERINFO_API_URL, {
         headers: {
-          Authorization: `Bearer ${token}`, // Pass the access token in the headers
+          Authorization: `Bearer ${token}`,
         },
       });
-
-      // Assuming the response data contains the avatar URL
-      if (response.data && response.data.avatar) {
-        setAvatar(response.data.avatar);
-        localStorage.setItem("avatar", response.data.avatar); // Optionally store it in localStorage
+      const { userProfile } = response.data;
+      
+      if (userProfile) {
+        setAvatar(userProfile.avatar);
+        setUserName(userProfile.user_name);
+        localStorage.setItem("avatar", userProfile.avatar);
+        localStorage.setItem("user_name", userProfile.user_name);
       }
     } catch (error) {
-      console.error("Error fetching avatar:", error);
-      if (error.response.status === 401) {
+      console.error("Error fetching user info:", error);
+      if (error.response && error.response.status === 401) {
         navigate("/login");
         localStorage.clear();
       }
+    } finally {
+      setLoading(false);
     }
   };
-
+  
   const handleLogin = () => {
     setIsLoggedIn(true);
     navigate("/login");
   };
-
+  
   const handleLogout = () => {
-    // Clear all localStorage items related to user data
-    localStorage.removeItem("user_name");
-    localStorage.removeItem("first_name");
-    localStorage.removeItem("last_name");
-    localStorage.removeItem("phone_number");
-    localStorage.removeItem("avatar");
-    localStorage.removeItem("email");
-    localStorage.removeItem("_id");
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("token_expiry"); // Clear token expiry as well
-    setIsLoggedIn(false); // Set login state to false
+    localStorage.clear(); // Clear all localStorage items
+    setIsLoggedIn(false);
     navigate("/login");
   };
-
+  
   const handleHome = () => {
     navigate("/");
   };
-
+  
   const profileVisit = () => {
-      if(localStorage.access_token === undefined){
-        navigate("/login");
-      }
+    if (!localStorage.access_token) {
+      navigate("/login");
+    } else {
       navigate("/profile");
+    }
   };
-
+  
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
-
+  
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
-
-  // Close the dropdown if clicked outside
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-
+  
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  
   return (
     <nav className="bg-primary p-4 sticky top-0 z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-2 lg:px-8">
@@ -137,41 +124,25 @@ const NavBar = () => {
               >
                 Home
               </a>
-              <a
-                href="#"
-                className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light"
-              >
-                About
-              </a>
-              <a
-                href="#"
-                className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light"
-              >
-                Services
-              </a>
-              <a
-                href="#"
-                className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light"
-              >
-                Contact
-              </a>
+              <a href="#" className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light">About</a>
+              <a href="#" className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light">Services</a>
+              <a href="#" className="text-white hover:text-accent px-3 py-2 rounded-md text-xl font-light">Contact</a>
             </div>
           </div>
 
           {/* Right: User Avatar and Dropdown */}
           <div className="flex items-center">
-            {isLoggedIn ? (
+            {loading ? (
+              <div className="text-white">Loading...</div> // Display loading state
+            ) : isLoggedIn ? (
               <div className="relative flex items-center space-x-2">
                 <div className="relative items-center space-x-2 hidden md:flex">
-                  {/* Profile Image */}
                   <img
                     className="h-12 w-12 rounded-full object-cover border border-white hover:cursor-pointer p-1"
                     src={avatar || "https://via.placeholder.com/150"}
                     alt="Profile of logged-in user"
                     onClick={toggleDropdown}
                   />
-
-                  {/* Username */}
                   <span
                     className="text-white font-small hover:cursor-pointer font-light"
                     onClick={toggleDropdown}
@@ -179,8 +150,6 @@ const NavBar = () => {
                     {userName}
                   </span>
                 </div>
-
-                {/* Username */}
 
                 {/* Dropdown Menu */}
                 {isOpen && (
@@ -254,7 +223,7 @@ const NavBar = () => {
       {/* Mobile Dropdown */}
       {isMobileMenuOpen && (
         <div className="mobile:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="px-2 pt-2 pb-3 space-y-1 ">
             <a
               href="#"
               className="text-white hover:text-neutral block px-3 py-2 rounded-md text-base font-medium"
@@ -262,24 +231,9 @@ const NavBar = () => {
             >
               Home
             </a>
-            <a
-              href="#"
-              className="text-white hover:text-neutral block px-3 py-2 rounded-md text-base font-medium"
-            >
-              About
-            </a>
-            <a
-              href="#"
-              className="text-white hover:text-neutral block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Services
-            </a>
-            <a
-              href="#"
-              className="text-white hover:text-neutral block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Contact
-            </a>
+            <a href="#" className="text-white hover:text-neutral block px-3 py-2 rounded-md text-base font-medium">About</a>
+            <a href="#" className="text-white hover:text-neutral block px-3 py-2 rounded-md text-base font-medium">Services</a>
+            <a href="#" className="text-white hover:text-neutral block px-3 py-2 rounded-md text-base font-medium">Contact</a>
             {isLoggedIn ? (
               <>
                 <a
@@ -290,15 +244,15 @@ const NavBar = () => {
                   Logout
                 </a>
                 <div
-                  className="px-3 py-3 flex items-center space-x-2 hover:cursor-pointer"
+                  className="px-3 py-2 rounded-md text-base font-medium flex items-center"
                   onClick={profileVisit}
                 >
                   <img
-                    className="h-8 w-8 rounded-full object-cover"
+                    className="h-8 w-8 rounded-full object-cover mr-2"
                     src={avatar || "https://via.placeholder.com/150"}
-                    alt="Profile"
+                    alt="Profile of logged-in user"
                   />
-                  <span className="text-white font-medium">{userName}</span>
+                  <span className="text-white">{userName}</span>
                 </div>
               </>
             ) : (

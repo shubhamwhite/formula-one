@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import ReactImg from '../assets/slider/F1 PAGE BANNER.webp'; // Replace with your actual path
-import VueImg from '../assets/slider/image_group_lang_1_index_0-1.jpg';   // Replace with your actual path
-import AngularImg from '../assets/slider/Race-2024-1536x446.jpg'; // Replace with your actual path
+import { useState, useEffect } from 'react';
+import ReactImg from '../assets/slider/Grand-Prix-Store-McLaren-2024-jpg.webp'; // Replace with your actual path
+import VueImg from '../assets/slider/8636141.jpg';   // Replace with your actual path
+import AngularImg from '../assets/slider/8636367.jpg'; // Replace with your actual path
 
 const Slider = () => {
   const slides = [
@@ -21,11 +21,11 @@ const Slider = () => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Automatic slide change every 2 seconds
+  // Automatic slide change every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 2000); // Change slide every 2 seconds
+    }, 5000); // Change slide every 5 seconds
 
     return () => clearInterval(interval); // Clean up the interval on component unmount
   }, [currentSlide]);
@@ -36,16 +36,20 @@ const Slider = () => {
 
   return (
     <div className="my-6 px-6 flex flex-col items-center justify-center w-full overflow-hidden cursor-pointer">
-      <div className="relative w-full h-[70vh] overflow-hidden shadow-lg transform transition-transform duration-300">
+      <div className="relative w-full h-[70vh] overflow-hidden shadow-lg transform transition-transform duration-500 rounded-lg"> {/* Duration set to 500ms for smoother transition */}
         {/* Blue overlay and image */}
-        <div className="relative h-full">
-          <img src={slides[currentSlide].image} alt="Slide" className="w-full h-full object-cover rounded-lg" />
+        <div className="relative h-full transition-opacity duration-1000 ease-in-out"> {/* Added transition for opacity */}
+          <img
+            src={slides[currentSlide].image}
+            alt="Slide"
+            className="w-full h-full object-cover rounded-lg opacity-100 transition-opacity duration-1000 ease-in-out" // Add opacity transition
+          />
           <div className="absolute inset-0 bg-primary opacity-10"></div>
         </div>
       </div>
 
       {/* Dash indicators */}
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-4 rounded-full">
         {slides.map((_, index) => (
           <span
             key={index}

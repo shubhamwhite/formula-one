@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { END_POINT } from '../api/endPoint';
-import banner from '../assets/banner/wp10415952-f1-driver-wallpapers.jpg';
+import banner from '../assets/banner/f1_car.jpg';
 import axios from 'axios'; 
 import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS

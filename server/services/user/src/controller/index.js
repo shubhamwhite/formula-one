@@ -1,9 +1,8 @@
-const { registerUser, loginUser, getUserInformation, updateAvatar, getAvatar } = require('./user.controller')
+const { registerUser, loginUser, getUserInformation, updateUserDetails } = require('./user.controller')
 
 module.exports = {
   registerUser,
   loginUser,
   getUserInformation,
-  updateAvatar,
-  getAvatar
+  updateUserDetails
 }

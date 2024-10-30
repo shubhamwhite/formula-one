@@ -13,116 +13,167 @@ import { ToastContainer, toast } from 'react-toastify'; // Import Toastify compo
 import 'react-toastify/dist/ReactToastify.css'
 
 const Profile = () => {
-  const [isMenuVisible, setIsMenuVisible] = useState(true);
-  const [activeSection, setActiveSection] = useState("personalInfo");
-  
-  const navigate = useNavigate();
+const [isMenuVisible, setIsMenuVisible] = useState(true);
+const [activeSection, setActiveSection] = useState("personalInfo");
+const [loading, setLoading] = useState(true); // New loading state
 
-  const toggleMenu = () => {
-    setIsMenuVisible(!isMenuVisible);
-  };
+const navigate = useNavigate();
 
+const toggleMenu = () => {
+  setIsMenuVisible(!isMenuVisible);
+};
 
-  const [isAgreed, setIsAgreed] = useState(false);
-  const [avatar, setAvatar] = useState(
-    "https://cdn-icons-png.freepik.com/256/13450/13450044.png?uid=R168510653&ga=GA1.1.487493721.1726747734&semt=ais_hybrid"
-  );
-  const [newAvatar, setNewAvatar] = useState(null); // Store new avatar file
-  const [formData, setFormData] = useState({
-    username: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    avatar: "",
-  });
- 
-  // Fetch user profile data
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const token = localStorage.getItem("access_token");
-        // Using Axios to fetch user profile data
-        const response = await axios.get(END_POINT.GET_USERINFO_API_URL, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        
-        const { userProfile } = response.data; // Extract userProfile directly from response data
-       
-        setFormData({
-          username: userProfile.user_name,
-          firstName: userProfile.first_name,
-          lastName: userProfile.last_name,
-          email: userProfile.email,
-          phoneNumber: userProfile.phone_number,
-        });
+const [isAgreed, setIsAgreed] = useState(false);
+const [avatar, setAvatar] = useState(
+  "https://cdn-icons-png.freepik.com/256/13450/13450044.png?uid=R168510653&ga=GA1.1.487493721.1726747734&semt=ais_hybrid"
+);
+const [newAvatar, setNewAvatar] = useState(null); // Store new avatar file
+const [formData, setFormData] = useState({
+  username: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  phoneNumber: "",
+  avatar: "",
+});
 
-        const userAvatar = await axios.get(END_POINT.GET_AVATAR, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        
-        const { avatar } = userAvatar.data;
-        setAvatar(avatar); // Set avatar, using existing default if not provided
-      } catch (error) {
-        if(error.response.status === 401){
-          navigate("/login");
-          localStorage.clear()
-          
-        }
-        console.error("Error fetching user profile:", error);
-      }
-    };
-
-    fetchProfile();
-  }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleAvatarUpload = (e) => {
-    const file = e.target.files[0];
-    setNewAvatar(file); // Save file for submission
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setAvatar(reader.result);
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSave = async () => {
-    const token = localStorage.getItem("access_token");
-    if (!token || !newAvatar) return; // Ensure token and avatar are present
-
+// Fetch user profile data
+// Fetch user profile data
+useEffect(() => {
+  const fetchProfile = async () => {
+    setLoading(true); 
     try {
-      const formData = new FormData();
-      formData.append("avatar", newAvatar);
-
-      await axios.post(END_POINT.UPDATE_AVATAR, formData, {
+      const token = localStorage.getItem("access_token");
+      const response = await axios.get(END_POINT.GET_USERINFO_API_URL, {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
         },
       });
 
-      toast.success("Avatar updated successfully."); // Show success toast
+      const { userProfile } = response.data;
+      setFormData({
+        username: userProfile.user_name,
+        firstName: userProfile.first_name,
+        lastName: userProfile.last_name,
+        email: userProfile.email,
+        phoneNumber: userProfile.phone_number,
+        avatar: userProfile.avatar,
+      });
+      setAvatar(userProfile.avatar || "default-avatar-url");
+
     } catch (error) {
-      console.error("Error updating avatar:", error);
-      toast.error("Failed to update avatar."); // Show error toast
+      if (error.response && error.response.status === 401) {
+        navigate("/login");
+        localStorage.clear();
+      }
+      console.error("Error fetching user profile:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
+  fetchProfile();
+}, []);
+
+
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setFormData({
+    ...formData,
+    [name]: value,
+  });
+};
+
+const handleAvatarUpload = (e) => {
+  const file = e.target.files[0];
+  setNewAvatar(file); // Save file for submission
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => setAvatar(reader.result);
+    reader.readAsDataURL(file);
+  }
+};
+
+const handleDiscard = async () => {
+  try {
+    const token = localStorage.getItem("access_token");
+
+    // Using Axios to fetch user profile data again
+    const response = await axios.get(END_POINT.GET_USERINFO_API_URL, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const { userProfile } = response.data; // Extract userProfile from response data
+    setFormData({
+      username: userProfile.user_name,
+      firstName: userProfile.first_name,
+      lastName: userProfile.last_name,
+      email: userProfile.email,
+      phoneNumber: userProfile.phone_number,
+      avatar: userProfile.avatar, // Set avatar from userProfile
+    });
+
+    // Update avatar to the fetched value
+    setAvatar(userProfile.avatar || "default-avatar-url"); // Use default if no avatar
+
+    // Optionally, you can show a toast message indicating that the changes have been discarded
+    toast.info("Changes discarded. Profile data refreshed.");
+
+  } catch (error) {
+    console.error("Error fetching user profile on discard:", error);
+    toast.error("Failed to refresh profile data.");
+  }
+};
+
+const handleSave = async () => {
+  const token = localStorage.getItem("access_token");
+  const { firstName, lastName, email, phoneNumber, username } = formData;
+
+  if (!token || !firstName || !lastName || !email || !phoneNumber || !username) {
+    toast.error("Please fill all the required fields.");
+    return;
+  }
+
+  try {
+    const updatedFormData = new FormData();
+
+    // Append avatar only if a new avatar has been selected
+    if (newAvatar) {
+      updatedFormData.append("avatar", newAvatar);
+    }
+
+    // Append other form fields
+    updatedFormData.append("first_name", firstName);
+    updatedFormData.append("last_name", lastName);
+    updatedFormData.append("email", email);
+    updatedFormData.append("phone_number", phoneNumber);
+    updatedFormData.append("user_name", username);
+
+    await axios.put(END_POINT.UPDATE_USER_PROFILE, updatedFormData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    toast.success("User details updated successfully.");
+  } catch (error) {
+    console.error("Error updating user details:", error);
+    toast.error(error.response.data.data.originalError || error.response.data.data.message);
+  }
+};
+
+
+  
+
   const renderSectionContent = () => {
+    if (loading) {
+      return <div>Loading...</div>; // Display loading state
+    }
     switch (activeSection) {
       case "personalInfo":
         return (
@@ -225,6 +276,7 @@ const Profile = () => {
               <div className="flex justify-end space-x-4 mt-4">
                 <button
                   type="button"
+                  onClick={handleDiscard}
                   className="px-4 py-2 bg-gray-200 text-gray-700 border rounded-md hover:bg-gray-300 transition"
                 >
                   Discard
@@ -298,14 +350,12 @@ const Profile = () => {
   return (
     <>
       <div className="flex h-screen">
- 
         <div
-          className={`bg-light p-6 flex flex-col space-y-4 shadow-md transition-all duration-300 ease-in-out ${isMenuVisible ? "w-1/4" : "w-26"}`}
+          className={`bg-light p-6 flex flex-col space-y-4 shadow-md transition-all duration-300 ease-in-out ${isMenuVisible ? "w-1/4 h-screen" : "w-26"}`}
         >
- 
           <button
             onClick={toggleMenu}
-            className="flex items-center p-4  rounded-md text-left transition"
+            className="flex items-center p-4 rounded-md text-left transition"
           >
             <img
               src={isMenuVisible ? closeIcon : openIcon}
@@ -313,7 +363,7 @@ const Profile = () => {
               className="w-6 h-6"
             />
           </button>
-  
+
           {/* Personal Information Button */}
           <button
             onClick={() => setActiveSection("personalInfo")}
@@ -326,7 +376,7 @@ const Profile = () => {
             <img src={profileIcon} alt="Profile" className="w-6 h-6 mr-2" />
             {isMenuVisible && <span>Personal Information</span>}
           </button>
-  
+
           {/* Wallet Button */}
           <button
             onClick={() => setActiveSection("wallet")}
@@ -339,7 +389,7 @@ const Profile = () => {
             <img src={walletIcon} alt="Wallet" className="w-6 h-6 mr-2" />
             {isMenuVisible && <span>Wallet</span>}
           </button>
-  
+
           {/* Terms and Conditions Button */}
           <button
             onClick={() => setActiveSection("termAndCondition")}
@@ -352,6 +402,7 @@ const Profile = () => {
             <img src={termIcon} alt="Terms" className="w-6 h-6 mr-2" />
             {isMenuVisible && <span>Terms and Conditions</span>}
           </button>
+
           <button
             onClick={() => setActiveSection("setting")}
             className={`flex items-center p-4 rounded-md text-left transition ${
@@ -360,17 +411,14 @@ const Profile = () => {
                 : "bg-light text-gray-700 hover:bg-gray-200"
             }`}
           >
-            <img src={settingIcon} alt="setting" className="w-6 h-6 mr-2" />
+            <img src={settingIcon} alt="Settings" className="w-6 h-6 mr-2" />
             {isMenuVisible && <span>Setting</span>}
           </button>
-
-         
-
         </div>
-  
+
         {/* Main content */}
         <div
-          className={`flex-grow p-20 pt-20 transition-all duration-300 ease-in-out ${isMenuVisible ? "w-3/4" : "w-full"}`}
+          className={`flex-grow p-20 pt-20 transition-all duration-300 ease-in-out ${isMenuVisible ? "w-3/4" : "w-full"} overflow-auto`}
         >
           <div className="w-full max-w-5xl">
             <div className="w-full mb-4">
@@ -380,7 +428,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <ToastContainer /> 
+      <ToastContainer />
     </>
   );
   
