@@ -17,6 +17,5 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1', require('./src/router/user.router'))
-app.use('/api/f1', require('./src/router/f1.router'))
 
 module.exports = app

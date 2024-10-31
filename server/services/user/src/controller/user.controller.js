@@ -67,7 +67,7 @@ exports.registerUser = async (req, res, next) => {
   }
 }
 
-// User update details
+// ** User update details
 exports.updateUserDetails = async (req, res, next) => {
   try {
     // Validate user input
