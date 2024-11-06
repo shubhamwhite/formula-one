@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
+import {END_POINT} from '../../api/endPoint'
 import axios from 'axios';
 import fakeData from '../../data/scoreCard/fakeUpcomingMatch.json';
 
 const UpCommingMatch = () => {
   const [matches, setMatches] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     // Fetch data from API
     const fetchUpcomingRaces = async () => {
       setLoading(true); // Set loading to true before fetching
       try {
-        const response = await axios.get('http://localhost:3003/api/f1/upcoming-race');
+        const response = await axios.get(END_POINT.UPCOMING_RACE);
         setMatches(response.data);
       } catch (error) {
         console.error("Failed to fetch upcoming races:", error);
@@ -32,6 +33,7 @@ const UpCommingMatch = () => {
 
       {/* Loading Indicator */}
       {loading ? (
+
         <div className="flex justify-center items-center h-48">
           <div className="loader">
             <svg
@@ -45,7 +47,7 @@ const UpCommingMatch = () => {
           </div>
         </div>
       ) : (
-        /* Scrollable Match List with Hidden Scrollbar */
+     
         <div className="h-96 overflow-y-auto p-4 bg-gray-700 rounded-lg shadow-lg hide-scrollbar">
           <div className="grid grid-cols-1 gap-4">
             {matches.map((match, index) => (

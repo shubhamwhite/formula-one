@@ -16,6 +16,6 @@ app.get('/', (req, res) => {
   res.send('Hello, World!')
 })
 
-app.use('/api/v1', require('./src/router/user.router'))
+app.use('/api/v1/user', require('./src/router/user.router'))
 
 module.exports = app

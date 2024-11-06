@@ -1,6 +1,6 @@
 import NavBar from '../components/NavBar'
 import Slider from '../components/Slider'
-import CombineCard from '../components/scoreCard/CombineCard'
+import CombineCard from '../components/thirdPatyCard/CombineCard'
 import BettingShow from '../components/userBetting/BettingShow'
 
 const Home = () => {

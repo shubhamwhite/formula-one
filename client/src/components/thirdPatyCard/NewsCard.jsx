@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { END_POINT } from '../../api/endPoint';
 import axios from 'axios';
 import fakeNewsData from '../../data/scoreCard/fakeNewsData'; // Import fake data
 
@@ -12,7 +13,7 @@ const NewsCard = () => {
     const fetchNews = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:3003/api/f1/news-report');
+        const response = await axios.get(END_POINT.NEWS_REPORT);
         if (response.data.length === 0) {
           throw new Error('No news data available');
         }

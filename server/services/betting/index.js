@@ -12,9 +12,13 @@ app.get('/', (req, res) => {
   res.send('Hello, World!')
 })
 
-app.use('/api/f1', require('./src/router/f1.router'))
+app.use('/api/f1/betting', require('./src/router/f1.router'))
 
-app.listen(config.PORT, () => {
-  console.log(cli.success(` Betting service is running on http://localhost:${config.PORT} `))
+app.listen(config.PORT, (error) => {
+  if (error) {
+    console.log(cli.error(` Betting service is not running on http://localhost:${config.PORT} : error is : ${ error.message } `))
+  } else {
+    console.log(cli.success(` Betting service is running on http://localhost:${config.PORT} `))
+  }
 })
-    
+     

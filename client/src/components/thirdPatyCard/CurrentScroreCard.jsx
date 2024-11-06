@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios"; // Import Axios
 import { END_POINT } from "../../api/endPoint";
 import fakeDrivers from "../../data/scoreCard/fakeCurrentScore"; // Import JSON data
 
@@ -10,8 +11,8 @@ const ScoreCard = () => {
     const fetchScoreboard = async () => {
       setLoading(true);
       try {
-        const response = await fetch(END_POINT.GET_CURRENT_SCOREBOARD);
-        const data = await response.json();
+        const response = await axios.get(END_POINT.CURRENT_SCOREBOARD); // Use Axios to fetch data
+        const data = response.data;
 
         // Check if valid data is received
         if (data && data.length > 0) {
@@ -51,9 +52,10 @@ const ScoreCard = () => {
       <h1 className="text-3xl font-semibold text-gray-900 dark:text-black mb-6">
         Current Scoreboard
       </h1>
-      <div className="h-96 overflow-y-scroll p-4 bg-gray-800 rounded-lg shadow-lg w-full hide-scrollbar">
+
+      <div className="h-96 overflow-y-scroll px-4 bg-gray-700 rounded-lg shadow-lg w-full hide-scrollbar">
         {loading ? (
-          <div className="flex justify-center items-center h-full">
+          <div className="flex justify-center items-center ">
             <div className="loader">
               <svg
                 className="animate-spin h-10 w-10 text-blue-500"
@@ -81,7 +83,7 @@ const ScoreCard = () => {
           drivers.map((driver) => (
             <div
               key={driver.position}
-              className="relative flex items-center my-4 p-6 bg-gray-700 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out border border-gray-600"
+              className="relative flex items-center my-4 p-6 bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out border border-gray-600"
             >
               <div
                 className={`absolute top-4 right-4 rounded-full w-8 h-8 flex items-center justify-center ${
@@ -98,7 +100,7 @@ const ScoreCard = () => {
                 <img
                   src={driver.image}
                   alt={driver.name}
-                  className="w-20 h-20 rounded-full border-4 border-gray-600 object-cover" // Add object-cover to maintain aspect ratio
+                  className="w-20 h-20 rounded-full border-4 border-gray-600 object-cover"
                 />
               </div>
               <div className="flex flex-col">
