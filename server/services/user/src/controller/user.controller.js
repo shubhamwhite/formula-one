@@ -7,6 +7,7 @@ const { validateRegister, validateUpdateUser } = require('../validator/user.vali
 const CustomErrorHandler = require('../utils/CustomError.utils')
 const { JwtUtils } = require('../utils/jwt.util')
 const config = require('../config')
+const emailService = require('../service/email.service')
 
 // ** User Registration Api
 
@@ -53,6 +54,8 @@ exports.registerUser = async (req, res, next) => {
 
     await _Refresh.create({ token: refreshTokenGenerate }) // Refresh token stored in the database
 
+    emailService.sendWelcomeEmail(user_name, email)
+    
     res.status(201).json({
       success: true,
       message: 'Registration successful',
