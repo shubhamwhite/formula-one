@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import ReactImg from '../assets/slider/Grand-Prix-Store-McLaren-2024-jpg.webp'; // Replace with your actual path
-import VueImg from '../assets/slider/8636141.jpg';   // Replace with your actual path
+import VueImg from '../assets/slider/8636141.jpg'; // Replace with your actual path
 import AngularImg from '../assets/slider/8636367.jpg'; // Replace with your actual path
 
 const Slider = () => {
@@ -35,25 +35,28 @@ const Slider = () => {
   };
 
   return (
-    <div className="my-6 px-6 flex flex-col items-center justify-center w-full overflow-hidden cursor-pointer">
-      <div className="relative w-full h-[70vh] overflow-hidden shadow-lg transform transition-transform duration-500 rounded-lg"> {/* Duration set to 500ms for smoother transition */}
-        {/* Blue overlay and image */}
-        <div className="relative h-full transition-opacity duration-1000 ease-in-out"> {/* Added transition for opacity */}
-          <img
-            src={slides[currentSlide].image}
-            alt="Slide"
-            className="w-full h-full object-cover rounded-lg opacity-100 transition-opacity duration-1000 ease-in-out" // Add opacity transition
-          />
-          <div className="absolute inset-0 bg-primary opacity-10"></div>
+    <div className="my-6 px-6 flex flex-col items-center justify-center w-full">
+      <div className="relative w-full h-[70vh] overflow-hidden shadow-lg rounded-lg group cursor-pointer transition-all duration-300 ease-in-out"> 
+        {/* Slide image */}
+        <img
+          src={slides[currentSlide].image}
+          alt="Slide"
+          className="w-full h-full object-cover rounded-lg transition-transform duration-500 ease-in-out group-hover:scale-105" 
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black opacity-40 transition-opacity duration-500 ease-in-out"></div>
+        {/* Slide text */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent text-white">
+          <p className="text-lg font-semibold">{slides[currentSlide].text}</p>
         </div>
       </div>
 
       {/* Dash indicators */}
-      <div className="flex justify-center mt-4 rounded-full">
+      <div className="flex justify-center mt-4">
         {slides.map((_, index) => (
           <span
             key={index}
-            className={`h-2 w-10 mx-1 rounded-full ${
+            className={`h-2 w-10 mx-1 rounded-full transition-all duration-300 ${
               currentSlide === index ? 'bg-blue-600' : 'bg-gray-300'
             }`}
           ></span>

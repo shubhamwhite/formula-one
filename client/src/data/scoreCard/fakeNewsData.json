@@ -1,0 +1,243 @@
+[
+    {
+      "dataSourceIdentifier": "1",
+      "headline": "Fake News Headline 1",
+      "description": "This is a placeholder description for fake news 1.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1528243400/photo/northampton-england-brad-pitt-star-of-the-upcoming-formula-one-based-movie-apex-and-damson.jpg?s=612x612&w=0&k=20&c=d5vIOHIkbPIAj1hph7XYGsQN4cbg7gsrwsmHAY-Gwn0=",
+          "alt": "Placeholder Image 1"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "2",
+      "headline": "Fake News Headline 2",
+      "description": "This is a placeholder description for fake news 2.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1533573303/photo/northampton-england-max-verstappen-of-the-netherlands-driving-the-oracle-red-bull-racing-rb19.jpg?s=612x612&w=0&k=20&c=_awDq2uiCp8IDqQNz0dEV98wr0FyYu7xCigwGt1xRrc=",
+          "alt": "Placeholder Image 2"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "3",
+      "headline": "Fake News Headline 3",
+      "description": "This is a placeholder description for fake news 3.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1495903821/photo/barcelona-spain-max-verstappen-of-the-netherlands-driving-the-oracle-red-bull-racing-rb19.jpg?s=612x612&w=0&k=20&c=iUdFIKxGQP4PmzLuZ4Aqk1jSidloSvZhSH56a-aEisU=",
+          "alt": "Placeholder Image 3"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "4",
+      "headline": "Fake News Headline 4",
+      "description": "This is a placeholder description for fake news 4.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/2169736283/photo/monza-italy-race-winner-charles-leclerc-of-monaco-and-ferrari-celebrates-in-parc-ferme-during.jpg?s=612x612&w=0&k=20&c=wPVLWjd3lYhIm-SfM9o4P9GXQ4JQTW-1lW6jbIl5u9Y=",
+          "alt": "Placeholder Image 4"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "5",
+      "headline": "Fake News Headline 5",
+      "description": "This is a placeholder description for fake news 5.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/2154727633/photo/monte-carlo-monaco-the-car-of-sergio-perez-of-mexico-and-oracle-red-bull-racing-is-recovered.jpg?s=612x612&w=0&k=20&c=3Vf0hBAjqGJQERdyzneFdWYwmAfnWlxaePYfndx3UZk=",
+          "alt": "Placeholder Image 5"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "6",
+      "headline": "Fake News Headline 6",
+      "description": "This is a placeholder description for fake news 6.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1443065752/photo/abu-dhabi-united-arab-emirates-the-drivers-pose-for-the-f1-2022-end-of-year-photo-prior-to.jpg?s=612x612&w=0&k=20&c=aqAdHN85d6WIjETDLh4FapVprfvzMZHdDNjYlcgDgWg=",
+          "alt": "Placeholder Image 6"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "7",
+      "headline": "Fake News Headline 7",
+      "description": "This is a placeholder description for fake news 7.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/2160156317/photo/circuit-de-monaco-monaco-exhaust-flames-shoot-up-through-the-diffuser-of-the-ferrari-156-85.jpg?s=612x612&w=0&k=20&c=n7fpGjBByBMHR2Djh5U0auq7ytdmpjwo4vyv7txC1v8=",
+          "alt": "Placeholder Image 7"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "8",
+      "headline": "Fake News Headline 8",
+      "description": "This is a placeholder description for fake news 8.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/2150599600/photo/spa-belgium-ayrton-senna-of-brazil-and-mclaren-celebrates-his-fifth-success-at-the-legendary.jpg?s=612x612&w=0&k=20&c=W25aV1xEs0vTA1ihJUJj_DFU0pCzCW6iRKJigT4HFvU=",
+          "alt": "Placeholder Image 8"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "9",
+      "headline": "Fake News Headline 9",
+      "description": "This is a placeholder description for fake news 9.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1686625816/photo/singapore-singapore-race-winner-carlos-sainz-of-spain-and-ferrari-celebrates-in-parc-ferme.jpg?s=612x612&w=0&k=20&c=DSCVpbT-0A2-2IObAg8Fwfu8179v8sgg4Pto8RSKqqs=",
+          "alt": "Placeholder Image 9"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "10",
+      "headline": "Fake News Headline 10",
+      "description": "This is a placeholder description for fake news 10.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/2173723984/photo/singapore-singapore-race-winner-lando-norris-of-great-britain-and-mclaren-celebrates-in-parc.jpg?s=612x612&w=0&k=20&c=c1DM0T9DO99xqfII4Gq6v4cAJ7A47dXszrlFHTuTgkg=",
+          "alt": "Placeholder Image 10"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "11",
+      "headline": "Fake News Headline 11",
+      "description": "This is a placeholder description for fake news 11.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1472079707/photo/bahrain-bahrain-lewis-hamilton-of-great-britain-and-mercedes-prepares-to-drive-in-the-garage.jpg?s=612x612&w=0&k=20&c=gbzA-N2FqEyKtM7xoeqO9_WXSIXAO4IV-d0GOuozvtg=",
+          "alt": "Placeholder Image 11"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "12",
+      "headline": "Fake News Headline 12",
+      "description": "This is a placeholder description for fake news 12.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1443028508/photo/abu-dhabi-united-arab-emirates-race-winner-max-verstappen-of-the-netherlands-and-oracle-red.jpg?s=612x612&w=0&k=20&c=hJX4qttNXOGX2G6k3DR627patXL8YwhHD7LADL1fEXM=",
+          "alt": "Placeholder Image 12"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "13",
+      "headline": "Fake News Headline 13",
+      "description": "This is a placeholder description for fake news 13.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1442960213/photo/abu-dhabi-united-arab-emirates-lewis-hamilton-of-great-britain-and-mercedes-looks-on-ahead-of.jpg?s=612x612&w=0&k=20&c=YBmVGog2XqyAWdA8aR2EovVVuMKHFoFCxJUKNXNnrnc=",
+          "alt": "Placeholder Image 13"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "14",
+      "headline": "Fake News Headline 14",
+      "description": "This is a placeholder description for fake news 14.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1801729029/photo/las-vegas-nevada-race-winner-max-verstappen-of-the-netherlands-and-oracle-red-bull-racing.jpg?s=612x612&w=0&k=20&c=LT_5oVsmqyN9c7K4oKezX2kVMSaho7sSTCp8O5QsWig=",
+          "alt": "Placeholder Image 14"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "15",
+      "headline": "Fake News Headline 15",
+      "description": "This is a placeholder description for fake news 15.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1528447687/photo/northampton-england-brad-pitt-star-of-the-upcoming-formula-one-based-movie-apex-and-damson.jpg?s=612x612&w=0&k=20&c=5aUaS2G_68xM2rYj9ol5Bp6SL5eLMSF0cU6ffrlN0lE=",
+          "alt": "Placeholder Image 15"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "16",
+      "headline": "Fake News Headline 16",
+      "description": "This is a placeholder description for fake news 16.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1478962856/photo/melbourne-australia-race-winner-max-verstappen-of-the-netherlands-and-oracle-red-bull-racing.jpg?s=612x612&w=0&k=20&c=6WNJhGb-94XfhJy_0WKBxcH3-EnC_zjJYumd8xjpsQM=",
+          "alt": "Placeholder Image 16"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "17",
+      "headline": "Fake News Headline 17",
+      "description": "This is a placeholder description for fake news 17.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/2154727020/photo/monte-carlo-monaco-the-car-of-sergio-perez-of-mexico-and-oracle-red-bull-racing-is-seen-after.jpg?s=612x612&w=0&k=20&c=fQR8Z-06an-eWint9fEDNR3kaOHHqrLJ_woz44ohY6Q=",
+          "alt": "Placeholder Image 17"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "18",
+      "headline": "Fake News Headline 18",
+      "description": "This is a placeholder description for fake news 18.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1471458174/photo/bahrain-bahrain-race-winner-max-verstappen-of-the-netherlands-and-oracle-red-bull-racing.jpg?s=612x612&w=0&k=20&c=Ii8td1bNosNieEO1l5xSGOGjjc_QtmvqZUnDAR5iaFI=",
+          "alt": "Placeholder Image 18"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "19",
+      "headline": "Fake News Headline 19",
+      "description": "This is a placeholder description for fake news 19.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1776565401/photo/sao-paulo-brazil-alexander-albon-of-thailand-driving-the-williams-fw45-mercedes-and-kevin.jpg?s=612x612&w=0&k=20&c=meak_R-0oFApIOqL6Txyk9kE0QXE3UYIzhfGJ7Ud_IY=",
+          "alt": "Placeholder Image 19"
+        }
+      ]
+    },
+    {
+      "dataSourceIdentifier": "20",
+      "headline": "Fake News Headline 20",
+      "description": "This is a placeholder description for fake news 20.",
+      "link": "#",
+      "images": [
+        {
+          "url": "https://media.gettyimages.com/id/1776760186/photo/sao-paulo-brazil-third-placed-fernando-alonso-of-spain-and-aston-martin-f1-team-celebrates-on.jpg?s=612x612&w=0&k=20&c=NT_iUjG4l2OVRh2Q_PvbS3w-Nnd2BjZBUrefXX9sYco=",
+          "alt": "Placeholder Image 20"
+        }
+      ]
+    }
+  ]
+  

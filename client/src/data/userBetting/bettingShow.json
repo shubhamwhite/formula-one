@@ -1,0 +1,134 @@
+[
+  {
+    "race": "2024 Monaco Grand Prix",
+    "eventDate": "2024-05-26",
+    "category": "$10 Race",
+    "teams": ["Red Bull Racing", "Ferrari", "Mercedes"],
+    "odds": {
+      "maxBet": 1000,
+      "minBet": 10,
+      "redBullOdds": 1.5,
+      "ferrariOdds": 2.5,
+      "mercedesOdds": 3.0
+    },
+    "additionalInfo": {
+      "currentOdds": "1.7 (Red Bull Racing)",
+      "teamRankings": {
+        "Red Bull Racing": 1,
+        "Ferrari": 2,
+        "Mercedes": 3
+      },
+      "note": "Red Bull Racing is the current favorite."
+    }
+  },
+  {
+    "race": "2024 British Grand Prix",
+    "eventDate": "2024-07-07",
+    "category": "$300 Race",
+    "teams": ["Aston Martin", "McLaren", "Alpine"],
+    "odds": {
+      "maxBet": 1500,
+      "minBet": 300,
+      "astonMartinOdds": 4.0,
+      "mclarenOdds": 2.8,
+      "alpineOdds": 3.5
+    },
+    "additionalInfo": {
+      "currentOdds": "3.2 (Aston Martin)",
+      "teamRankings": {
+        "Aston Martin": 1,
+        "McLaren": 2,
+        "Alpine": 3
+      },
+      "note": "Aston Martin has had strong performances this season."
+    }
+  },
+  {
+    "race": "2024 German Grand Prix",
+    "eventDate": "2024-08-10",
+    "category": "$50 Race",
+    "teams": ["Ferrari", "Red Bull Racing", "Mercedes"],
+    "odds": {
+      "maxBet": 800,
+      "minBet": 50,
+      "redBullOdds": 1.8,
+      "ferrariOdds": 2.1,
+      "mercedesOdds": 2.7
+    },
+    "additionalInfo": {
+      "currentOdds": "1.9 (Red Bull Racing)",
+      "teamRankings": {
+        "Red Bull Racing": 1,
+        "Ferrari": 2,
+        "Mercedes": 3
+      },
+      "note": "Red Bull Racing is leading the championship."
+    }
+  },
+  {
+    "race": "2024 Italian Grand Prix",
+    "eventDate": "2024-09-01",
+    "category": "$150 Race",
+    "teams": ["McLaren", "Aston Martin", "Ferrari"],
+    "odds": {
+      "maxBet": 1200,
+      "minBet": 150,
+      "astonMartinOdds": 3.9,
+      "mclarenOdds": 2.6,
+      "ferrariOdds": 2.8
+    },
+    "additionalInfo": {
+      "currentOdds": "3.0 (Aston Martin)",
+      "teamRankings": {
+        "McLaren": 1,
+        "Aston Martin": 2,
+        "Ferrari": 3
+      },
+      "note": "McLaren has been dominating in recent races."
+    }
+  },
+  {
+    "race": "2024 Canadian Grand Prix",
+    "eventDate": "2024-06-15",
+    "category": "$200 Race",
+    "teams": ["Red Bull Racing", "Mercedes", "Aston Martin"],
+    "odds": {
+      "maxBet": 1300,
+      "minBet": 200,
+      "redBullOdds": 1.6,
+      "mercedesOdds": 2.3,
+      "astonMartinOdds": 3.2
+    },
+    "additionalInfo": {
+      "currentOdds": "1.8 (Red Bull Racing)",
+      "teamRankings": {
+        "Red Bull Racing": 1,
+        "Mercedes": 2,
+        "Aston Martin": 3
+      },
+      "note": "Mercedes is hoping for a strong finish in Canada."
+    }
+  },
+  {
+    "race": "2024 French Grand Prix",
+    "eventDate": "2024-06-30",
+    "category": "$100 Race",
+    "teams": ["Red Bull Racing", "McLaren", "Alpine"],
+    "odds": {
+      "maxBet": 1100,
+      "minBet": 100,
+      "redBullOdds": 1.7,
+      "mclarenOdds": 2.5,
+      "alpineOdds": 3.0
+    },
+    "additionalInfo": {
+      "currentOdds": "2.0 (McLaren)",
+      "teamRankings": {
+        "Red Bull Racing": 1,
+        "McLaren": 2,
+        "Alpine": 3
+      },
+      "note": "McLaren's new upgrades may give them an edge."
+    }
+  }
+]

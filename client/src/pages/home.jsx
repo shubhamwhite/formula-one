@@ -1,12 +1,15 @@
 import NavBar from '../components/NavBar'
 import Slider from '../components/Slider'
-// import OfferCard from '../components/offerCard/OfferCard'
+import CombineCard from '../components/scoreCard/CombineCard'
+import BettingShow from '../components/userBetting/BettingShow'
 
 const Home = () => {
   return (
     <div>
        <NavBar/>
        <Slider/>
+       <CombineCard/>
+       <BettingShow/>
     </div>
   )
 }
