@@ -12,10 +12,6 @@ app.use(express.static(path.join(__dirname, './src/public')))
 
 connectMongoDB()
  
-app.get('/', (req, res) => {
-  res.send('Hello, World!')
-})
+app.use('/', require('./src/router/user.routes')) 
 
-app.use('/api/v1/user', require('./src/router/user.router'))
-
-module.exports = app
+module.exports = app 

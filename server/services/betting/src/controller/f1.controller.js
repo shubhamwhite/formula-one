@@ -48,7 +48,7 @@ exports.upcomingRacese = async (req, res) => {
 
     // Iterate over each date and its races
     Object.entries(upcomingRace).forEach(([date, races]) => {
-      races.forEach((race) => {
+      races.forEach((race) => { 
         const raceStartDate = new Date(race.startDate)
         
         // Only include races that are upcoming (start on or after the current date)

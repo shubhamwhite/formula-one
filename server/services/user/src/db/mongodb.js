@@ -5,7 +5,7 @@ const { cli } = require('../helper/color')
 const connectMongoDB = async () => {
   try {
     await mongoose.connect(config.MONGO_DB_URI, { })
-    console.log(cli.success(' Connected to MongoDB DataBase '))
+    console.log(cli.dbSuccess(' Connected to MongoDB DataBase '))
   } catch (err) {
     console.error('MongoDB connection error:', err)
     process.exit(1) 

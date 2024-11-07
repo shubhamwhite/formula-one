@@ -11,10 +11,10 @@ const {
   updateUserDetails
 } = require('../controller/index.js') 
 
-router.route('/user/register').post(registerUser)
-router.route('/user/login').post(loginUser)
-router.route('/user/details').get(auth, getUserInformation)
-router.route('/user/details/update').put(auth, upload.single('avatar'), updateUserDetails)
+router.route('/register').post(registerUser)
+router.route('/login').post(loginUser)
+router.route('/details').get(auth, getUserInformation)
+router.route('/details/update').put(auth, upload.single('avatar'), updateUserDetails)
 router.use(errorHandler)
  
 module.exports = router

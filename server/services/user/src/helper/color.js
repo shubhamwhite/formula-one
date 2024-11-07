@@ -1,8 +1,14 @@
 const clc = require('cli-color')
 
 exports.cli = {
-  success:clc.xterm(4).bold.bgXterm(10),
-  error : clc.red.bold,
-  warn : clc.yellow,
-  notice: clc.blue
+
+  // service 
+  serverSuccess:clc.xterm(202),
+  serverError : clc.red.bold,
+  serverWarn : clc.yellow,
+  serverNotice: clc.blue,
+
+  // database
+  dbSuccess: clc.xterm(226)
+  
 } 
